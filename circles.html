@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./circles.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.2/paper-full.js"  
+        integrity="sha256-0UCYTfEkQlxl7Fy99RM2kU+ScyrKrW005WKxkeu3To0=" crossorigin="anonymous"></script>
+    <!-- Define inlined PaperScript associate it with myCanvas + making scope global so we don't
+        have to keep writing paper.Path() or paper.view.draw()-->
+    <script type="text/javascript">
+	    paper.install(window);
+        //function to get paper set up on load
+	    window.onload = function() {
+		    paper.setup('myCanvas');
+		    //need to use tool.function and defining the event handler to use
+		    var tool = new Tool();
+		    // Define a mousedown handler
+		    tool.onMouseDown = function(event) {
+                //cannot use point * point because javascript cannot be overloaded
+                //we are using Paper.js point by point multiplication with canvas size limitations
+                var circlePoint = new Point(view.size.width, view.size.height).multiply(Point.random());
+                new Path.Circle(circlePoint, 10).fillColor = "green";
+		    }
+	    }
+
+    </script>
+    <title>Paptatap</title>
+</head>
+<body>
+    <canvas id="myCanvas" resize></canvas>
+</body>
+</html>
